@@ -40,7 +40,7 @@ Optimize-VHD -mode full -path C:\Users\Ilya\AppData\Local\Packages\CanonicalGrou
 2.4.1. Install missing tool set:
   - Go to Control Panel | Programs and features | Turn windows features on or off
   - Tick Hyper-V (Hyper-V Management tools | Hyper-V Platform)
-  - When installed, reboot if asked. After reboot, try again step 2.2.
+  - When installed, reboot if asked. After reboot, try again step 2.3.
 
 2.4.2. Try to use diskpart to optimized the size of image
 ```cmd
