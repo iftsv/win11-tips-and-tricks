@@ -19,3 +19,35 @@ WinSATAssessmentState : 1
 WinSPRLevel           : 6.3
 PSComputerName        :
 ```
+
+#### 2. Optimize WSL distr sizes with Optimize-VHD cmdlet
+Once `df -h` shows that your free space is out, you can try to optimize the size of .vhdx file
+2.0. Stop wsl
+```cmd
+wsl --shutdown
+```
+2.1. Locate image file using PowerShell
+```cmd
+(Get-ChildItem -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss | Where-Object { $_.GetValue("DistributionName") -eq '<distribution-name>' }).GetValue("BasePath") + "\ext4.vhdx"
+```
+2.2. Run size optimization, for example:
+```cmd
+Optimize-VHD -mode full -path C:\Users\Ilya\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc\LocalState\ext4.vhdx
+```
+2.3. If Optimize-VHD is missing, you can try an alternative way
+2.3.1. Install missing tool set:
+  - Go to Control Panel | Programs and features | Turn windows features on or off
+  - Tick Hyper-V (Hyper-V Management tools | Hyper-V Platform)
+  - When installed, reboot if asked. After reboot, try again step 2.2.
+2.3.2. Try to use diskpart to optimized the size of image
+```cmd
+diskpart
+# open window Diskpart
+select vdisk file="C:\Users\…\ext4.vhdx"
+attach vdisk readonly
+compact vdisk
+detach vdisk
+exit
+```
+
+[Read more](https://learn.microsoft.com/en-us/windows/wsl/disk-space)
