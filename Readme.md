@@ -1,4 +1,4 @@
-#### 1. How to Update and Find Your Windows Experience Index Score
+### 1. How to Update and Find Your Windows Experience Index Score
 1.1. I prefer to first delete all of the files in `C:\Windows\Performance\WinSAT\DataStore` to get new data.
 
 1.2. Open the __Command Prompt__ with admin privileges (not PowerShell). Type in `winsat formal` and expect to wait at least a few minutes.
@@ -20,8 +20,9 @@ WinSPRLevel           : 6.3
 PSComputerName        :
 ```
 
-#### 2. Optimize WSL distr sizes with Optimize-VHD cmdlet
+### 2. Optimize WSL distr sizes with Optimize-VHD cmdlet
 Once `df -h` shows that your free space is out, you can try to optimize the size of .vhdx file
+
 2.1. Stop wsl
 ```cmd
 wsl --shutdown
