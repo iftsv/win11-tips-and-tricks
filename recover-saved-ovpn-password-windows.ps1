@@ -1,3 +1,5 @@
+# this script helps to recover saved OpenVPN passwords from Windows Registry
+
 $keys = Get-ChildItem "HKCU:\Software\OpenVPN-GUI\configs"
 $items = $keys | ForEach-Object {Get-ItemProperty $_.PsPath}
 
