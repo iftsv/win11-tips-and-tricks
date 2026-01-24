@@ -5,4 +5,4 @@ Original post is [here](https://www.reddit.com/r/Bitwarden/comments/a67c1n/comme
 4. Extract OTP seed from `[your_steamID].maFile` inside `maFiles`-subdirectory where the SDA is installed. Seed is value of `secret` parameter from JSON variables which looks like: `"uri":"otpauth://totp/Steam:your-username?secret=ABCDEFGHIJKLMN1234OPQRSTUVWXYZ4321&issuer=Steam"`
 5. Add new OTP for entry using OTP seed, choose Steam settings. Also save OTP seed and Revocation Code.
 6. Check that the OTP code from KeePassXC matches the one from Steam Desktop Authenticator.
-7. ou can now safely remove Steam Desktop Authenticator along with the maFiles subdirectory.
+7. You can now safely remove Steam Desktop Authenticator along with the maFiles subdirectory.
