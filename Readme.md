@@ -57,3 +57,46 @@ exit
 
 ### 3. Event-Driven Task Automation Without Task Scheduler PowerShell
 Real-time event monitoring in Windows Logs, Applications, and Services. [Read more](https://www.outsidethebox.ms/22879/)
+
+```
+# Run as Administrator
+# Event Log (Get-EventLog -AsString)
+$log = [System.Diagnostics.EventLog]'System'
+$log.EnableRaisingEvents = $true
+ 
+# Background job name
+$jobname = 'ResumeFromSleep'
+   
+$action = {
+    # Path to the captured events log file
+    $logFile = "C:\temp\ResumeFromSleep.txt"
+      
+    $entry = $Event.SourceEventArgs.Entry    
+      
+    # Target event: ID 1 from 'Microsoft-Windows-Power-Troubleshooter'
+    if ($entry.EventId -eq 1 -and $entry.Source -eq 'Microsoft-Windows-Power-Troubleshooter') {
+          
+        # Log message
+        $msg = "Resumed from sleep: event $($entry.EventId) from $($entry.Source) is: $($entry.Message)"       
+        $msg | Out-File -Append -FilePath $logFile -Encoding Unicode         
+        Write-Host $msg
+    }
+}
+   
+# Unregister previous background jobs with the same name
+Unregister-Event -SourceIdentifier $jobname -ErrorAction SilentlyContinue
+   
+# Register and start the background event subscription
+$job = Register-ObjectEvent -InputObject $log -EventName EntryWritten -SourceIdentifier $jobname -Action $action
+Receive-Job $job
+   
+Write-Host "Monitoring started for Event ID 1 (Power-Troubleshooter)."
+ 
+# Optional: block the prompt to keep the session active
+# Only useful when running directly in the console
+while ($true) { Start-Sleep -Seconds 1 }
+ 
+<# To stop monitoring and fully remove the background job:
+Get-Job -Name 'ResumeFromSleep' | Stop-Job -PassThru | Remove-Job
+#>
+```
