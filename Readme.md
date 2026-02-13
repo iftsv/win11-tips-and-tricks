@@ -54,3 +54,6 @@ exit
 ```
 
 [Read more](https://learn.microsoft.com/en-us/windows/wsl/disk-space)
+
+### 3. Event-Driven Task Automation Without Task Scheduler PowerShell
+Real-time event monitoring in Windows Logs, Applications, and Services. [Read more](https://www.outsidethebox.ms/22879/)
